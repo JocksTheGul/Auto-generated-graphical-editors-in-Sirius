@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="hclScope" nsURI="http://www.xtext.org/example/hclscope/HclScope"
+    nsPrefix="hclscope">
+  <eAnnotations source="sirius">
+    <details key="name" value="hclModel"/>
+    <details key="mainclass" value="StateMachine"/>
+    <details key="viewpoint" value="hclStateMachine"/>
+    <details key="diagram" value="Statemachine"/>
+    <details key="path" value="HCLTest.project.design"/>
+  </eAnnotations>
+  <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel"/>
+  <eClassifiers xsi:type="ecore:EClass" name="StateMachine">
+    <eAnnotations source="sirius.tool">
+      <details key="name" value="editLabel"/>
+      <details key="type" value="DirectEditLabel"/>
+      <details key="feature" value="name"/>
+      <details key="value" value="var:0"/>
+      <details key="mappings" value="State, Junction, Choice, InitialState, ContainedState:State, ContainedJunction:State, ContainedChoice:State, ContainedInitialState:State, ExitPoint:State, EntryPoint:State, HistoryNode:State"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="states" upperBound="-1"
+        eType="#//State" containment="true">
+      <eAnnotations source="sirius.container">
+        <details key="name" value="State"/>
+        <details key="expression" value="feature:states"/>
+        <details key="background" value="purple"/>
+        <details key="foreground" value="white"/>
+        <details key="container" value="default"/>
+        <details key="domain" value="State"/>
+        <details key="icon" value="false"/>
+      </eAnnotations>
+      <eAnnotations source="sirius.tool">
+        <details key="name" value="CreateState"/>
+        <details key="type" value="ContainerCreationDescription"/>
+        <details key="mappings" value="State, ContainedState:State"/>
+        <details key="reference" value="states"/>
+        <details key="belongsto" value="State"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="initialtransition" eType="#//InitialTransition"
+        containment="true">
+      <eAnnotations source="sirius.edge">
+        <details key="type" value="element"/>
+        <details key="source" value="InitialState, ContainedInitialState:State"/>
+        <details key="target" value="Junction, Choice, State, EntryPoint:State, ExitPoint:State, ContainedState:State, ContainedJunction:State, ContainedChoice:State"/>
+        <details key="containerreuse" value="true"/>
+        <details key="color" value="black"/>
+        <details key="name" value="InitialTransition"/>
+        <details key="label" value="aql:self.name"/>
+        <details key="domain" value="InitialTransition"/>
+        <details key="targetFinderExpression" value="aql:self.initialto"/>
+        <details key="sourceFinderExpression" value="aql:self.initialState"/>
+        <details key="targetStyle" value="InputFillClosedArrow"/>
+        <details key="icon" value="false"/>
+        <details key="expression" value="aql:self.eAllContents()"/>
+      </eAnnotations>
+      <eAnnotations source="sirius.altedge">
+        <details key="belongsto" value="InitialTransition"/>
+        <details key="condition" value="aql:self.transitionbody.transitionguard->notEmpty()"/>
+        <details key="label" value="aql:self.name + '[' + self.transitionbody.transitionguard.name + ']'"/>
+      </eAnnotations>
+      <eAnnotations source="sirius.tool">
+        <details key="name" value="CreateInitialTransition"/>
+        <details key="type" value="EdgeCreationDescription"/>
+        <details key="mappings" value="InitialTransition"/>
+        <details key="source" value="initialState"/>
+        <details key="target" value="initialto"/>
+        <details key="reference" value="initialtransition"/>
+        <details key="belongsto" value="InitialTransition"/>
+        <details key="containerexpression" value="aql:source.eContainer()"/>
+      </eAnnotations>
+      <eAnnotations source="sirius.tool">
+        <details key="type" value="ReconnectEdgeDescription"/>
+        <details key="name" value="ReconnectInitialTransitionTarget"/>
+        <details key="feature" value="initialto"/>
+        <details key="belongsto" value="InitialTransition"/>
+        <details key="kind" value="target"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="junction" upperBound="-1"
+        eType="#//Junction" containment="true">
+      <eAnnotations source="sirius.node">
+        <details key="name" value="Junction"/>
+        <details key="expression" value="aql:self.junction"/>
+        <details key="style" value="DotDescription"/>
+        <details key="label" value=""/>
+        <details key="icon" value="false"/>
+        <details key="color" value="light_blue"/>
+        <details key="container" value="default"/>
+        <details key="height" value="3"/>
+        <details key="width" value="3"/>
+        <details key="domain" value="Junction"/>
+      </eAnnotations>
+      <eAnnotations source="sirius.tool">
+        <details key="name" value="CreateJunction"/>
+        <details key="type" value="NodeCreationDescription"/>
+        <details key="label" value=""/>
+        <details key="mappings" value="Junction, ContainedJunction:State"/>
+        <details key="reference" value="junction"/>
+        <details key="belongsto" value="Junction"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="choice" upperBound="-1"
+        eType="#//Choice" containment="true">
+      <eAnnotations source="sirius.node">
+        <details key="name" value="Choice"/>
+        <details key="expression" value="aql:self.choice"/>
+        <details key="style" value="LozengeNodeDescription"/>
+        <details key="label" value=""/>
+        <details key="icon" value="false"/>
+        <details key="color" value="light_blue"/>
+        <details key="container" value="default"/>
+        <details key="height" value="3"/>
+        <details key="width" value="3"/>
+        <details key="domain" value="Choice"/>
+      </eAnnotations>
+      <eAnnotations source="sirius.tool">
+        <details key="name" value="CreateChoice"/>
+        <details key="type" value="NodeCreationDescription"/>
+        <details key="label" value=""/>
+        <details key="mappings" value="Choice, ContainedChoice:State"/>
+        <details key="reference" value="choice"/>
+        <details key="belongsto" value="Choice"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="transition" upperBound="-1"
+        eType="#//Transition" containment="true">
+      <eAnnotations source="sirius.edge">
+        <details key="type" value="element"/>
+        <details key="source" value="Junction, Choice, State, EntryPoint:State, ExitPoint:State, ContainedState:State, ContainedJunction:State, ContainedChoice:State"/>
+        <details key="target" value="Junction, Choice, State, EntryPoint:State, ExitPoint:State, ContainedState:State, ContainedJunction:State, ContainedChoice:State"/>
+        <details key="color" value="black"/>
+        <details key="name" value="Transitions"/>
+        <details key="label" value="aql:self.name"/>
+        <details key="domain" value="Transition"/>
+        <details key="targetFinderExpression" value="feature:to"/>
+        <details key="sourceFinderExpression" value="feature:from"/>
+        <details key="targetStyle" value="InputFillClosedArrow"/>
+        <details key="icon" value="false"/>
+        <details key="expression" value="aql:self.eAllContents()"/>
+      </eAnnotations>
+      <eAnnotations source="sirius.altedge">
+        <details key="belongsto" value="Transitions"/>
+        <details key="condition" value="aql:self.transitionbody.transitionguard->notEmpty()"/>
+        <details key="label" value="aql:self.name + '[' + self.transitionbody.transitionguard.name + ']'"/>
+      </eAnnotations>
+      <eAnnotations source="sirius.tool">
+        <details key="name" value="CreateTransition"/>
+        <details key="type" value="EdgeCreationDescription"/>
+        <details key="mappings" value="Transitions"/>
+        <details key="source" value="from"/>
+        <details key="target" value="to"/>
+        <details key="reference" value="transition"/>
+        <details key="belongsto" value="Transitions"/>
+        <details key="containerexpression" value="aql:source.eContainer()"/>
+      </eAnnotations>
+      <eAnnotations source="sirius.tool">
+        <details key="type" value="ReconnectEdgeDescription"/>
+        <details key="name" value="ReconnectTransitionSource"/>
+        <details key="feature" value="from"/>
+        <details key="belongsto" value="Transitions"/>
+        <details key="kind" value="source"/>
+      </eAnnotations>
+      <eAnnotations source="sirius.tool">
+        <details key="type" value="ReconnectEdgeDescription"/>
+        <details key="name" value="ReconnectTransitionTarget"/>
+        <details key="feature" value="to"/>
+        <details key="belongsto" value="Transitions"/>
+        <details key="kind" value="target"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="initialstate" eType="#//InitialState"
+        containment="true">
+      <eAnnotations source="sirius.node">
+        <details key="name" value="InitialState"/>
+        <details key="expression" value="feature:initialstate"/>
+        <details key="style" value="DotDescription"/>
+        <details key="label" value=""/>
+        <details key="icon" value="false"/>
+        <details key="color" value="light_blue"/>
+        <details key="height" value="1"/>
+        <details key="width" value="1"/>
+        <details key="container" value="default"/>
+        <details key="domain" value="InitialState"/>
+      </eAnnotations>
+      <eAnnotations source="sirius.tool">
+        <details key="name" value="CreateInitialState"/>
+        <details key="type" value="NodeCreationDescription"/>
+        <details key="label" value=""/>
+        <details key="mappings" value="InitialState, ContainedInitialState:State"/>
+        <details key="reference" value="initialstate"/>
+        <details key="belongsto" value="InitialState"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="State" eSuperTypes="#//Vertex">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="internaltransition" upperBound="-1"
+        eType="#//InternalTransition" containment="true">
+      <eAnnotations source="sirius.decoration">
+        <details key="type" value="MappingBasedDecoration"/>
+        <details key="name" value="InternalTransition"/>
+        <details key="position" value="NORTH_EAST"/>
+        <details key="expression" value="aql:self.internaltransition->notEmpty()"/>
+        <details key="image" value="/img/internal.png"/>
+        <details key="mappings" value="State, ContainedState:State"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="entryaction" upperBound="-1"
+        eType="#//EntryAction" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="exitaction" upperBound="-1"
+        eType="#//ExitAction" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="entrypoint" upperBound="-1"
+        eType="#//EntryPoint" containment="true">
+      <eAnnotations source="sirius.borderednode">
+        <details key="name" value="EntryPoint"/>
+        <details key="expression" value="feature:entrypoint"/>
+        <details key="style" value="DotDescription"/>
+        <details key="icon" value="false"/>
+        <details key="color" value="red"/>
+        <details key="label" value="IN"/>
+        <details key="domain" value="EntryPoint"/>
+        <details key="container" value="State"/>
+      </eAnnotations>
+      <eAnnotations source="sirius.tool">
+        <details key="name" value="CreateEntry"/>
+        <details key="type" value="NodeCreationDescription"/>
+        <details key="label" value=""/>
+        <details key="mappings" value="EntryPoint:State"/>
+        <details key="reference" value="entrypoint"/>
+        <details key="belongsto" value="EntryPoint"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="exitpoint" upperBound="-1"
+        eType="#//ExitPoint" containment="true">
+      <eAnnotations source="sirius.borderednode">
+        <details key="name" value="ExitPoint"/>
+        <details key="expression" value="feature:exitpoint"/>
+        <details key="style" value="DotDescription"/>
+        <details key="icon" value="false"/>
+        <details key="color" value="red"/>
+        <details key="label" value="OUT"/>
+        <details key="domain" value="ExitPoint"/>
+        <details key="container" value="State"/>
+      </eAnnotations>
+      <eAnnotations source="sirius.tool">
+        <details key="name" value="CreateExit"/>
+        <details key="type" value="NodeCreationDescription"/>
+        <details key="label" value=""/>
+        <details key="mappings" value="ExitPoint:State"/>
+        <details key="reference" value="exitpoint"/>
+        <details key="belongsto" value="ExitPoint"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="states" upperBound="-1"
+        eType="#//State" containment="true">
+      <eAnnotations source="sirius.container">
+        <details key="name" value="ContainedState"/>
+        <details key="expression" value="feature:states"/>
+        <details key="background" value="green"/>
+        <details key="foreground" value="white"/>
+        <details key="domain" value="State"/>
+        <details key="mapping" value="State"/>
+        <details key="container" value="State"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="initialstate" eType="#//InitialState"
+        containment="true">
+      <eAnnotations source="sirius.node">
+        <details key="name" value="ContainedInitialState"/>
+        <details key="expression" value="feature:initialstate"/>
+        <details key="style" value="DotDescription"/>
+        <details key="label" value=""/>
+        <details key="icon" value="false"/>
+        <details key="color" value="light_blue"/>
+        <details key="container" value="State"/>
+        <details key="domain" value="InitialState"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="initialtransition" eType="#//InitialTransition"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="junction" upperBound="-1"
+        eType="#//Junction" containment="true">
+      <eAnnotations source="sirius.node">
+        <details key="name" value="ContainedJunction"/>
+        <details key="expression" value="aql:self.junction"/>
+        <details key="style" value="DotDescription"/>
+        <details key="label" value=""/>
+        <details key="icon" value="false"/>
+        <details key="color" value="light_blue"/>
+        <details key="container" value="State"/>
+        <details key="domain" value="Junction"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="choice" upperBound="-1"
+        eType="#//Choice" containment="true">
+      <eAnnotations source="sirius.node">
+        <details key="name" value="ContainedChoice"/>
+        <details key="expression" value="aql:self.choice"/>
+        <details key="style" value="LozengeNodeDescription"/>
+        <details key="label" value=""/>
+        <details key="icon" value="false"/>
+        <details key="color" value="light_blue"/>
+        <details key="container" value="State"/>
+        <details key="domain" value="Choice"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="transition" upperBound="-1"
+        eType="#//Transition" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="historytransition" upperBound="-1"
+        eType="#//HistoryTransition" containment="true">
+      <eAnnotations source="sirius.edge">
+        <details key="type" value="element"/>
+        <details key="source" value="Junction, Choice, State, EntryPoint:State, ExitPoint:State, ContainedState:State, ContainedJunction:State, ContainedChoice:State"/>
+        <details key="target" value="HistoryNode:State"/>
+        <details key="name" value="HistoryTransitions"/>
+        <details key="label" value="feature:name"/>
+        <details key="targetFinderExpression" value="aql:self.history"/>
+        <details key="sourceFinderExpression" value="aql:self.from"/>
+        <details key="domain" value="HistoryTransition"/>
+        <details key="targetStyle" value="InputFillClosedArrow"/>
+        <details key="icon" value="false"/>
+      </eAnnotations>
+      <eAnnotations source="sirius.altedge">
+        <details key="belongsto" value="HistoryTransitions"/>
+        <details key="condition" value="aql:self.transitionbody.transitionguard->notEmpty()"/>
+        <details key="label" value="aql:self.name + '[' + self.transitionbody.transitionguard.name + ']'"/>
+      </eAnnotations>
+      <eAnnotations source="sirius.tool">
+        <details key="name" value="CreateHistoryTransition"/>
+        <details key="type" value="EdgeCreationDescription"/>
+        <details key="mappings" value="HistoryTransitions"/>
+        <details key="source" value="from"/>
+        <details key="target" value="history"/>
+        <details key="reference" value="historytransition"/>
+        <details key="belongsto" value="HistoryTransitions"/>
+        <details key="containerexpression" value="aql:source.eContainer()"/>
+      </eAnnotations>
+      <eAnnotations source="sirius.tool">
+        <details key="type" value="ReconnectEdgeDescription"/>
+        <details key="name" value="ReconnectHistoryTransitionSource"/>
+        <details key="feature" value="from"/>
+        <details key="belongsto" value="HistoryTransitions"/>
+        <details key="kind" value="source"/>
+      </eAnnotations>
+      <eAnnotations source="sirius.tool">
+        <details key="type" value="ReconnectEdgeDescription"/>
+        <details key="name" value="ReconnectHistoryTransitionTarget"/>
+        <details key="feature" value="history"/>
+        <details key="belongsto" value="HistoryTransitions"/>
+        <details key="kind" value="target"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="deephistory" upperBound="-1"
+        eType="#//DeepHistory" containment="true">
+      <eAnnotations source="sirius.node">
+        <details key="name" value="HistoryNode"/>
+        <details key="expression" value="aql:self.deephistory"/>
+        <details key="style" value="EllipseNodeDescription"/>
+        <details key="label" value="H"/>
+        <details key="icon" value="false"/>
+        <details key="color" value="yellow"/>
+        <details key="width" value="3"/>
+        <details key="height" value="3"/>
+        <details key="container" value="State"/>
+        <details key="domain" value="DeepHistory"/>
+      </eAnnotations>
+      <eAnnotations source="sirius.tool">
+        <details key="name" value="CreateHistoryNode"/>
+        <details key="type" value="NodeCreationDescription"/>
+        <details key="label" value=""/>
+        <details key="mappings" value="HistoryNode:State"/>
+        <details key="reference" value="deephistory"/>
+        <details key="belongsto" value="HistoryNode"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EntryAction">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ExitAction">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="InitialState">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Junction" eSuperTypes="#//Vertex"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Choice" eSuperTypes="#//Vertex"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EntryPoint" eSuperTypes="#//Vertex"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ExitPoint" eSuperTypes="#//Vertex"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DeepHistory">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="InitialTransition" eSuperTypes="#//Transitions">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="initialto" eType="#//Vertex"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="initialState" eType="#//InitialState"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Transition" eSuperTypes="#//Transitions">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="from" eType="#//Vertex"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="to" eType="#//Vertex"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="InternalTransition">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="transitionbody" eType="#//TransitionBody"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="HistoryTransition" eSuperTypes="#//Transitions">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="from" eType="#//Vertex"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="history" eType="#//DeepHistory"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TransitionBody">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="methodparameter" upperBound="-1"
+        eType="#//MethodParameterTrigger" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="portevent" upperBound="-1"
+        eType="#//PortEventTrigger" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="trigger" upperBound="-1"
+        eType="#//Trigger" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="transitionguard" eType="#//TransitionGuard"
+        containment="true">
+      <eAnnotations source="sirius.decoration">
+        <details key="name" value="Guard"/>
+        <details key="expression" value="aql:self.transitionbody.transitionguard->notEmpty()"/>
+        <details key="image" value="/img/imgGuard.png"/>
+        <details key="mappings" value="Transitions, HistoryTransitions, InitialTransition"/>
+        <details key="position" value="SOUTH_WEST"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="transitionoperation" eType="#//TransitionOperation"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TransitionGuard">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TransitionOperation">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Trigger">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Method">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Parameter">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MethodParameterTrigger">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="method" eType="#//Method"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parameter" eType="#//Parameter"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Port">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Event">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PortEventTrigger">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="port" eType="#//Port" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="event" eType="#//Event"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Vertex">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Transitions">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="transitionbody" eType="#//TransitionBody"
+        containment="true"/>
+  </eClassifiers>
+</ecore:EPackage>

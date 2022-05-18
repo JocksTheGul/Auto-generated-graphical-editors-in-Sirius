@@ -1,0 +1,188 @@
+@sirius(name="hclModel", mainclass="StateMachine", viewpoint="hclStateMachine", diagram="Statemachine", path="HCLTest.project.design")
+@GenModel
+@namespace(uri="http://www.xtext.org/example/hclscope/HclScope", prefix="hclscope")
+package hclScope;
+
+@sirius.tool(name="editLabel", type="DirectEditLabel", feature="name", value="var:0", mappings="State, Junction, Choice, InitialState, ContainedState:State, ContainedJunction:State, ContainedChoice:State, ContainedInitialState:State, ExitPoint:State, EntryPoint:State, HistoryNode:State")
+
+//Deletion not needed as there is nothing to unset
+class StateMachine {
+	attr String name;
+
+	@sirius.container(name="State", expression="feature:states", background="purple", foreground="white", container="default", domain="State", icon="false")
+	@sirius.tool(name="CreateState", type="ContainerCreationDescription", mappings="State, ContainedState:State", reference="states", belongsto="State")
+	val State[*] states;
+
+	@sirius.edge(type="element", source="InitialState, ContainedInitialState:State", target="Junction, Choice, State, EntryPoint:State, ExitPoint:State, ContainedState:State, ContainedJunction:State, ContainedChoice:State", containerreuse="true", color="black", name="InitialTransition", label="aql:self.name", domain="InitialTransition", targetFinderExpression="aql:self.initialto", sourceFinderExpression="aql:self.initialState", targetStyle="InputFillClosedArrow", icon="false", expression="aql:self.eAllContents()")
+	@sirius.altedge(belongsto="InitialTransition", condition="aql:self.transitionbody.transitionguard->notEmpty()", label="aql:self.name + '[' + self.transitionbody.transitionguard.name + ']'")
+	@sirius.tool(name="CreateInitialTransition", type="EdgeCreationDescription", mappings="InitialTransition", source="initialState", target="initialto", reference="initialtransition", belongsto="InitialTransition", containerexpression="aql:source.eContainer()")
+	@sirius.tool(type="ReconnectEdgeDescription", name="ReconnectInitialTransitionTarget", feature="initialto", belongsto="InitialTransition", kind="target")
+	val InitialTransition initialtransition;
+
+	@sirius.node(name="Junction", expression="aql:self.junction", style="DotDescription", label="", icon="false", color="light_blue", container="default", height="3", width="3", domain="Junction")
+	@sirius.tool(name="CreateJunction", type="NodeCreationDescription", label="", mappings="Junction, ContainedJunction:State", reference="junction", belongsto="Junction")
+	val Junction[*] junction;
+
+	@sirius.node(name="Choice", expression="aql:self.choice", style="LozengeNodeDescription", label="", icon="false", color="light_blue", container="default", height="3", width="3", domain="Choice")
+	@sirius.tool(name="CreateChoice", type="NodeCreationDescription", label="", mappings="Choice, ContainedChoice:State", reference="choice", belongsto="Choice")
+	val Choice[*] choice;
+
+	@sirius.edge(type="element", source="Junction, Choice, State, EntryPoint:State, ExitPoint:State, ContainedState:State, ContainedJunction:State, ContainedChoice:State", target="Junction, Choice, State, EntryPoint:State, ExitPoint:State, ContainedState:State, ContainedJunction:State, ContainedChoice:State", color="black", name="Transitions", label="aql:self.name", domain="Transition", targetFinderExpression="feature:to", sourceFinderExpression="feature:from", targetStyle="InputFillClosedArrow", icon="false", expression="aql:self.eAllContents()")
+	@sirius.altedge(belongsto="Transitions", condition="aql:self.transitionbody.transitionguard->notEmpty()", label="aql:self.name + '[' + self.transitionbody.transitionguard.name + ']'")
+	@sirius.tool(name="CreateTransition", type="EdgeCreationDescription", mappings="Transitions", source="from", target="to", reference="transition", belongsto="Transitions", containerexpression="aql:source.eContainer()")
+	@sirius.tool(type="ReconnectEdgeDescription", name="ReconnectTransitionSource", feature="from", belongsto="Transitions", kind="source")
+	@sirius.tool(type="ReconnectEdgeDescription", name="ReconnectTransitionTarget", feature="to", belongsto="Transitions", kind="target")
+	val Transition[*] transition;
+
+	@sirius.node(name="InitialState", expression="feature:initialstate", style="DotDescription", label="", icon="false", color="light_blue", height="1", width="1", container="default", domain="InitialState")
+	@sirius.tool(name="CreateInitialState", type="NodeCreationDescription", label="", mappings="InitialState, ContainedInitialState:State", reference="initialstate", belongsto="InitialState")
+	val InitialState initialstate;
+}
+
+class State extends Vertex {
+
+	@sirius.decoration(type="MappingBasedDecoration", name="InternalTransition", position="NORTH_EAST", expression="aql:self.internaltransition->notEmpty()", image="/img/internal.png", mappings="State, ContainedState:State")
+	val InternalTransition[*] internaltransition;
+	val EntryAction[*] entryaction;
+	val ExitAction[*] exitaction;
+
+	@sirius.borderednode(name="EntryPoint", expression="feature:entrypoint", style="DotDescription", icon="false", color="red", label="IN", domain="EntryPoint", container="State")
+	@sirius.tool(name="CreateEntry", type="NodeCreationDescription", label="", mappings="EntryPoint:State", reference="entrypoint", belongsto="EntryPoint")
+	val EntryPoint[*] entrypoint;
+
+	@sirius.borderednode(name="ExitPoint", expression="feature:exitpoint", style="DotDescription", icon="false", color="red", label="OUT", domain="ExitPoint", container="State")
+	@sirius.tool(name="CreateExit", type="NodeCreationDescription", label="", mappings="ExitPoint:State", reference="exitpoint", belongsto="ExitPoint")
+	val ExitPoint[*] exitpoint;
+
+	@sirius.container(name="ContainedState", expression="feature:states", background="green", foreground="white", domain="State", mapping="State", container="State")
+	val State[*] states;
+
+	@sirius.node(name="ContainedInitialState", expression="feature:initialstate", style="DotDescription", label="", icon="false", color="light_blue", container="State", domain="InitialState")
+	val InitialState initialstate;
+	val InitialTransition initialtransition;
+
+	@sirius.node(name="ContainedJunction", expression="aql:self.junction", style="DotDescription", label="", icon="false", color="light_blue", container="State", domain="Junction")
+	val Junction[*] junction;
+
+	@sirius.node(name="ContainedChoice", expression="aql:self.choice", style="LozengeNodeDescription", label="", icon="false", color="light_blue",  container="State", domain="Choice")
+	val Choice[*] choice;
+	val Transition[*] transition;
+
+	@sirius.edge(type="element", source="Junction, Choice, State, EntryPoint:State, ExitPoint:State, ContainedState:State, ContainedJunction:State, ContainedChoice:State", target="HistoryNode:State", name="HistoryTransitions", label="feature:name", targetFinderExpression="aql:self.history", sourceFinderExpression="aql:self.from", domain="HistoryTransition", targetStyle="InputFillClosedArrow", icon="false")
+	@sirius.altedge(belongsto="HistoryTransitions", condition="aql:self.transitionbody.transitionguard->notEmpty()", label="aql:self.name + '[' + self.transitionbody.transitionguard.name + ']'")
+	@sirius.tool(name="CreateHistoryTransition", type="EdgeCreationDescription", mappings="HistoryTransitions", source="from", target="history", reference="historytransition", belongsto="HistoryTransitions", containerexpression="aql:source.eContainer()")
+	@sirius.tool(type="ReconnectEdgeDescription", name="ReconnectHistoryTransitionSource", feature="from", belongsto="HistoryTransitions", kind="source")
+	@sirius.tool(type="ReconnectEdgeDescription", name="ReconnectHistoryTransitionTarget", feature="history", belongsto="HistoryTransitions", kind="target")
+	val HistoryTransition[*] historytransition;
+
+	@sirius.node(name="HistoryNode", expression="aql:self.deephistory", style="EllipseNodeDescription", label="H", icon="false", color="yellow", width= "3", height="3", container="State", domain="DeepHistory")
+	@sirius.tool(name="CreateHistoryNode", type="NodeCreationDescription", label="", mappings="HistoryNode:State", reference="deephistory", belongsto="HistoryNode")
+	val DeepHistory[*] deephistory;
+	
+}
+
+class EntryAction {
+	attr String name;
+}
+
+class ExitAction {
+	attr String name;
+}
+
+class InitialState {
+	attr String name;
+}
+
+class Junction extends Vertex {
+}
+
+class Choice extends Vertex {
+}
+
+class EntryPoint extends Vertex {
+}
+
+class ExitPoint extends Vertex {
+}
+
+class DeepHistory {
+	attr String name;
+}
+
+class InitialTransition extends Transitions {
+	ref Vertex initialto;
+	ref InitialState initialState;
+}
+
+class Transition extends Transitions {
+	ref Vertex from;
+	ref Vertex to;
+}
+
+class InternalTransition {
+	attr String name;
+	val TransitionBody transitionbody;
+}
+
+class HistoryTransition extends Transitions {
+	ref Vertex from;
+	ref DeepHistory history;
+}
+
+class TransitionBody {
+	val MethodParameterTrigger[*] methodparameter;
+	val PortEventTrigger[*] portevent;
+	val Trigger[*] trigger;
+
+	@sirius.decoration(name="Guard", expression="aql:self.transitionbody.transitionguard->notEmpty()", image="/img/imgGuard.png", mappings="Transitions, HistoryTransitions, InitialTransition", position="SOUTH_WEST")
+	val TransitionGuard transitionguard;
+	val TransitionOperation transitionoperation;
+}
+
+class TransitionGuard {
+	attr String name;
+}
+
+class TransitionOperation {
+	attr String name;
+}
+
+class Trigger {
+	attr String name;
+}
+
+class Method {
+	attr String name;
+}
+
+class Parameter {
+	attr String name;
+}
+
+class MethodParameterTrigger {
+	val Method method;
+	val Parameter parameter;
+}
+
+class Port {
+	attr String name;
+}
+
+class Event {
+	attr String name;
+}
+
+class PortEventTrigger {
+	val Port port;
+	val Event event;
+}
+
+class Vertex {
+	attr String name;
+}
+
+class Transitions {
+	attr String name;
+	val TransitionBody transitionbody;
+}
+
