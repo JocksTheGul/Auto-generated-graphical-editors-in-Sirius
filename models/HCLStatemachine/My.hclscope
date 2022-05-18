@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hclScope:StateMachine xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:hclScope="http://www.xtext.org/example/hclscope/HclScope">
+  <states name="A">
+    <internaltransition>
+      <transitionbody/>
+    </internaltransition>
+    <entrypoint name="entry1"/>
+    <entrypoint name="entry2"/>
+    <entrypoint name="entry3"/>
+    <entrypoint/>
+    <exitpoint name="exit1"/>
+    <exitpoint name="exit2"/>
+    <states name="B">
+      <entrypoint/>
+      <states name="B1"/>
+      <states name="B3"/>
+      <states name="B2"/>
+      <junction/>
+      <choice/>
+      <transition name="tB1" from="//@states.0/@states.0/@choice.0" to="//@states.0/@states.0/@states.0">
+        <transitionbody>
+          <transitionguard name="else"/>
+        </transitionbody>
+      </transition>
+      <transition name="tB2" from="//@states.0/@states.0/@choice.0" to="//@states.0/@states.0/@junction.0">
+        <transitionbody>
+          <transitionguard name="count > 0"/>
+        </transitionbody>
+      </transition>
+      <transition name="tB3" from="//@states.0/@states.0/@entrypoint.0" to="//@states.0/@states.0/@choice.0"/>
+      <transition name="tB4" from="//@states.0/@states.0/@junction.0" to="//@states.0/@states.0/@states.2">
+        <transitionbody>
+          <transitionguard name="count > 5"/>
+        </transitionbody>
+      </transition>
+      <transition name="tB5" from="//@states.0/@states.0/@junction.0" to="//@states.0/@states.0/@states.1">
+        <transitionbody>
+          <transitionguard name="count &lt;= 5"/>
+        </transitionbody>
+      </transition>
+    </states>
+    <states name="C">
+      <entrypoint name="entrypoint3"/>
+      <entrypoint name="entrypoint4"/>
+      <states name="D">
+        <entrypoint name="entry4"/>
+        <states name="F">
+          <entrypoint name="entry5"/>
+          <exitpoint/>
+          <initialstate/>
+          <initialtransition name="t11" initialto="//@states.0/@states.1/@states.0/@states.0/@exitpoint.0" initialState="//@states.0/@states.1/@states.0/@states.0/@initialstate"/>
+        </states>
+        <transition name="t10" from="//@states.0/@states.1/@states.0/@entrypoint.0" to="//@states.0/@states.1/@states.0/@states.0/@entrypoint.0"/>
+      </states>
+      <initialstate name="stateC"/>
+      <initialtransition name="t9" initialto="//@states.0/@states.1/@states.0/@entrypoint.0" initialState="//@states.0/@states.1/@initialstate"/>
+      <historytransition name="t8H" from="//@states.0/@states.1/@entrypoint.1" history="//@states.0/@states.1/@deephistory.0"/>
+      <deephistory/>
+    </states>
+    <initialstate name="stateA"/>
+    <initialtransition name="t4" initialto="//@states.0/@states.1/@entrypoint.0" initialState="//@states.0/@initialstate"/>
+    <transition name="t2" from="//@states.0/@exitpoint.0" to="//@states.0/@entrypoint.1">
+      <transitionbody>
+        <transitionguard name="attribute > 1"/>
+      </transitionbody>
+    </transition>
+    <transition name="t1" from="//@states.0/@entrypoint.0" to="//@states.0/@states.0/@entrypoint.0"/>
+    <transition name="t6" from="//@states.0/@exitpoint.1" to="//@states.1"/>
+    <transition name="t8" from="//@states.0/@entrypoint.2" to="//@states.0/@states.1/@entrypoint.1"/>
+    <historytransition name="t3H" from="//@states.0/@entrypoint.3" history="//@states.0/@deephistory.0"/>
+    <deephistory/>
+  </states>
+  <states name="E"/>
+  <initialtransition name="Initial" initialto="//@states.0/@entrypoint.0" initialState="//@initialstate"/>
+  <transition name="t7" from="//@states.1" to="//@states.0/@entrypoint.2"/>
+  <transition name="t3" from="//@states.1" to="//@states.0/@entrypoint.3"/>
+  <initialstate name="machine"/>
+</hclScope:StateMachine>
