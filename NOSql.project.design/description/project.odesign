@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:properties="http://www.eclipse.org/sirius/properties/1.0.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:tool="http://www.eclipse.org/sirius/diagram/description/tool/1.1.0" xmlns:tool_1="http://www.eclipse.org/sirius/description/tool/1.1.0" name="NoSQL_Schema" version="12.0.0.2017041100">
+  <ownedViewpoints name="NoSQLView_Test_genereted" modelFileExtension="nosql_schema">
+    <ownedRepresentations xsi:type="description_1:DiagramDescription" name="Overview" domainClass="NoSQL_Schema::NoSQLSchema">
+      <metamodel href="http://www.modelum.es/nosql_schema"/>
+      <defaultLayer name="Default">
+        <edgeMappings name="Reference" semanticCandidatesExpression="" sourceMapping="//@ownedViewpoints[name='NoSQLView_Test_genereted']/@ownedRepresentations[name='Overview']/@defaultLayer/@containerMappings[name='Entity']/@subContainerMappings[name='EntityVersion']" targetMapping="//@ownedViewpoints[name='NoSQLView_Test_genereted']/@ownedRepresentations[name='Overview']/@defaultLayer/@containerMappings[name='Entity']" targetFinderExpression="[self.refTo/]" sourceFinderExpression="aql:self.eContainer(NoSQL_Schema::EntityVersion)" domainClass="NoSQL_Schema::Reference" useDomainElement="true" reconnections="//@ownedViewpoints[name='NoSQLView_Test_genereted']/@ownedRepresentations[name='Overview']/@defaultLayer/@toolSections.0/@ownedTools[name='ReconnectReference']">
+          <style sourceArrow="FillDiamond" targetArrow="InputFillClosedArrow" sizeComputationExpression="2">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <centerLabelStyleDescription labelSize="12" showIcon="false" labelExpression="Reference ">
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <edgeMappings name="Aggregate" semanticCandidatesExpression="" sourceMapping="//@ownedViewpoints[name='NoSQLView_Test_genereted']/@ownedRepresentations[name='Overview']/@defaultLayer/@containerMappings[name='Entity']/@subContainerMappings[name='EntityVersion']" targetMapping="//@ownedViewpoints[name='NoSQLView_Test_genereted']/@ownedRepresentations[name='Overview']/@defaultLayer/@containerMappings[name='Entity']/@subContainerMappings[name='EntityVersion']" targetFinderExpression="[self.refTo/]" sourceFinderExpression="aql:self.eContainer(NoSQL_Schema::EntityVersion)" domainClass="NoSQL_Schema::Aggregate" useDomainElement="true" reconnections="//@ownedViewpoints[name='NoSQLView_Test_genereted']/@ownedRepresentations[name='Overview']/@defaultLayer/@toolSections.0/@ownedTools[name='ReconnectAggregate']">
+          <style targetArrow="InputFillClosedArrow" sizeComputationExpression="2">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <centerLabelStyleDescription labelSize="12" showIcon="false" labelExpression="Aggregate ">
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <containerMappings name="Entity" labelDirectEdit="//@ownedViewpoints[name='NoSQLView_Test_genereted']/@ownedRepresentations[name='Overview']/@defaultLayer/@toolSections.0/@ownedTools[name='editLabel']" semanticCandidatesExpression="feature:entities" domainClass="NoSQL_Schema::Entity" labelExpression="feature:name">
+          <subContainerMappings name="EntityVersion" semanticCandidatesExpression="feature:entityversions" domainClass="NoSQL_Schema::EntityVersion" childrenPresentation="VerticalStack">
+            <subContainerMappings name="ConnectionsContainer" semanticCandidatesExpression="[self/]" domainClass="NoSQL_Schema::EntityVersion" childrenPresentation="VerticalStack">
+              <subContainerMappings name="ReferenceContainer" semanticCandidatesExpression="aql:self.properties->filter(NoSQL_Schema::Reference).refTo" domainClass="NoSQL_Schema::Entity" childrenPresentation="HorizontalStack">
+                <subContainerMappings name="ReferenceVersionContainer" semanticCandidatesExpression="aql:self.entityversions" domainClass="NoSQL_Schema::EntityVersion" childrenPresentation="List">
+                  <subNodeMappings name="Attribute" labelDirectEdit="//@ownedViewpoints[name='NoSQLView_Test_genereted']/@ownedRepresentations[name='Overview']/@defaultLayer/@toolSections.0/@ownedTools[name='editLabel']" semanticCandidatesExpression="feature:properties" domainClass="NoSQL_Schema::Attribute">
+                    <style xsi:type="style:CustomStyleDescription" labelSize="12" labelExpression="feature.name" sizeComputationExpression="2" labelPosition="node" resizeKind="NSEW" width="-1" height="-1">
+                      <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                      <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                      <color href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                    </style>
+                    <conditionnalStyles predicateExpression="[self.type.oclIsTypeOf(NoSQL_Schema::PrimitiveType)/]">
+                      <style xsi:type="style:CustomStyleDescription" labelSize="12" labelExpression="[self.name + ': ' + self.type->selectByType(PrimitiveType).name/]" labelPosition="node" resizeKind="NSEW">
+                        <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                        <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                      </style>
+                    </conditionnalStyles>
+                    <conditionnalStyles predicateExpression="[self.type.oclIsTypeOf(NoSQL_Schema::Tuple)/]">
+                      <style xsi:type="style:CustomStyleDescription" labelSize="12" labelExpression="[self.name + ': Tuple [' + self.type.oclAsType(NoSQL_Schema::Tuple).elements->selectByType(NoSQL_Schema::PrimitiveType)->collect(elem : NoSQL_Schema::PrimitiveType | elem.name + ' ') + ']'/]" labelPosition="node" resizeKind="NSEW">
+                        <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                        <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                      </style>
+                    </conditionnalStyles>
+                  </subNodeMappings>
+                  <subNodeMappings name="Reference" semanticCandidatesExpression="feature:properties" domainClass="NoSQL_Schema::Reference">
+                    <style xsi:type="style:CustomStyleDescription" labelSize="12" labelExpression="[self.name + ': ' + self.refTo.name/]" sizeComputationExpression="2" labelPosition="node" resizeKind="NSEW" width="3" height="3">
+                      <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                      <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                      <color href="environment:/viewpoint#//@systemColors/@entries[name='light_blue']"/>
+                    </style>
+                  </subNodeMappings>
+                  <subNodeMappings name="Aggregate" semanticCandidatesExpression="feature:properties" domainClass="NoSQL_Schema::Aggregate">
+                    <style xsi:type="style:CustomStyleDescription" labelSize="12" labelExpression="[self.name + ': ' + self.refTo.ancestors()->first().oclAsType(NoSQL_Schema::Entity).name + ' v_' + self.refTo.versionId/]" sizeComputationExpression="2" labelPosition="node" resizeKind="NSEW">
+                      <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                      <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                      <color href="environment:/viewpoint#//@systemColors/@entries[name='light_blue']"/>
+                    </style>
+                  </subNodeMappings>
+                  <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="12" showIcon="false" labelExpression="[self.ancestors()->selectByType(NoSQL_Schema::Entity)->first().name + '_' + self.versionId/]" roundedCorner="true">
+                    <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                    <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                    <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_purple']"/>
+                    <foregroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_purple']"/>
+                  </style>
+                </subContainerMappings>
+                <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="12" showIcon="false" labelExpression="aql:'Reference: ' + self.name" roundedCorner="true">
+                  <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                  <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                  <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_purple']"/>
+                  <foregroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_purple']"/>
+                </style>
+              </subContainerMappings>
+              <subContainerMappings name="AggregateContainer" semanticCandidatesExpression="aql:self.properties->filter(NoSQL_Schema::Aggregate).refTo" domainClass="NoSQL_Schema::EntityVersion" childrenPresentation="List">
+                <subNodeMappings name="Attribute" labelDirectEdit="//@ownedViewpoints[name='NoSQLView_Test_genereted']/@ownedRepresentations[name='Overview']/@defaultLayer/@toolSections.0/@ownedTools[name='editLabel']" semanticCandidatesExpression="feature:properties" domainClass="NoSQL_Schema::Attribute">
+                  <style xsi:type="style:CustomStyleDescription" labelSize="12" labelExpression="feature.name" sizeComputationExpression="2" labelPosition="node" resizeKind="NSEW" width="-1" height="-1">
+                    <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                    <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                    <color href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                  </style>
+                  <conditionnalStyles predicateExpression="[self.type.oclIsTypeOf(NoSQL_Schema::PrimitiveType)/]">
+                    <style xsi:type="style:CustomStyleDescription" labelSize="12" labelExpression="[self.name + ': ' + self.type->selectByType(PrimitiveType).name/]" labelPosition="node" resizeKind="NSEW">
+                      <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                      <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                    </style>
+                  </conditionnalStyles>
+                  <conditionnalStyles predicateExpression="[self.type.oclIsTypeOf(NoSQL_Schema::Tuple)/]">
+                    <style xsi:type="style:CustomStyleDescription" labelSize="12" labelExpression="[self.name + ': Tuple [' + self.type.oclAsType(NoSQL_Schema::Tuple).elements->selectByType(NoSQL_Schema::PrimitiveType)->collect(elem : NoSQL_Schema::PrimitiveType | elem.name + ' ') + ']'/]" labelPosition="node" resizeKind="NSEW">
+                      <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                      <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                    </style>
+                  </conditionnalStyles>
+                </subNodeMappings>
+                <subNodeMappings name="Reference" semanticCandidatesExpression="feature:properties" domainClass="NoSQL_Schema::Reference">
+                  <style xsi:type="style:CustomStyleDescription" labelSize="12" labelExpression="[self.name + ': ' + self.refTo.name/]" sizeComputationExpression="2" labelPosition="node" resizeKind="NSEW" width="3" height="3">
+                    <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                    <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                    <color href="environment:/viewpoint#//@systemColors/@entries[name='light_blue']"/>
+                  </style>
+                </subNodeMappings>
+                <subNodeMappings name="Aggregate" semanticCandidatesExpression="feature:properties" domainClass="NoSQL_Schema::Aggregate">
+                  <style xsi:type="style:CustomStyleDescription" labelSize="12" labelExpression="[self.name + ': ' + self.refTo.ancestors()->first().oclAsType(NoSQL_Schema::Entity).name + ' v_' + self.refTo.versionId/]" sizeComputationExpression="2" labelPosition="node" resizeKind="NSEW">
+                    <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                    <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                    <color href="environment:/viewpoint#//@systemColors/@entries[name='light_blue']"/>
+                  </style>
+                </subNodeMappings>
+                <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="12" showIcon="false" labelExpression="['Aggregate: ' + self.ancestors()->selectByType(NoSQL_Schema::Entity)->first().name + '_' + self.versionId/]" roundedCorner="true">
+                  <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                  <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                  <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_purple']"/>
+                  <foregroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_purple']"/>
+                </style>
+              </subContainerMappings>
+              <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="12" showIcon="false" labelExpression="Connections" roundedCorner="true">
+                <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='purple']"/>
+                <foregroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='purple']"/>
+              </style>
+            </subContainerMappings>
+            <subContainerMappings name="AttributeContainer" semanticCandidatesExpression="[self/]" domainClass="NoSQL_Schema::EntityVersion" childrenPresentation="List">
+              <subNodeMappings name="Attribute" labelDirectEdit="//@ownedViewpoints[name='NoSQLView_Test_genereted']/@ownedRepresentations[name='Overview']/@defaultLayer/@toolSections.0/@ownedTools[name='editLabel']" semanticCandidatesExpression="feature:properties" doubleClickDescription="//@ownedViewpoints[name='NoSQLView_Test_genereted']/@ownedRepresentations[name='Overview']/@defaultLayer/@toolSections.0/@ownedTools[name='ChangePrimaryType']" domainClass="NoSQL_Schema::Attribute">
+                <style xsi:type="style:CustomStyleDescription" labelSize="12" labelExpression="feature.name" sizeComputationExpression="2" labelPosition="node" resizeKind="NSEW" width="-1" height="-1">
+                  <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                  <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                  <color href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                </style>
+                <conditionnalStyles predicateExpression="[self.type.oclIsTypeOf(NoSQL_Schema::PrimitiveType)/]">
+                  <style xsi:type="style:CustomStyleDescription" labelSize="12" labelExpression="[self.name + ': ' + self.type->selectByType(PrimitiveType).name/]" labelPosition="node" resizeKind="NSEW">
+                    <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                    <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                  </style>
+                </conditionnalStyles>
+                <conditionnalStyles predicateExpression="[self.type.oclIsTypeOf(NoSQL_Schema::Tuple)/]">
+                  <style xsi:type="style:CustomStyleDescription" labelSize="12" labelExpression="[self.name + ': Tuple [' + self.type.oclAsType(NoSQL_Schema::Tuple).elements->selectByType(NoSQL_Schema::PrimitiveType)->collect(elem : NoSQL_Schema::PrimitiveType | elem.name + ' ') + ']'/]" labelPosition="node" resizeKind="NSEW">
+                    <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                    <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                  </style>
+                </conditionnalStyles>
+              </subNodeMappings>
+              <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="12" showIcon="false" labelExpression="Attributes" roundedCorner="true">
+                <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='yellow']"/>
+                <foregroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='yellow']"/>
+              </style>
+            </subContainerMappings>
+            <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="12" showIcon="false" labelExpression="[self.ancestors()->selectByType(NoSQL_Schema::Entity)->first().name + '_' + self.versionId/]" roundedCorner="true">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_green']"/>
+              <foregroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_green']"/>
+            </style>
+          </subContainerMappings>
+          <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="12" showIcon="false" roundedCorner="true">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='purple']"/>
+            <foregroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='purple']"/>
+          </style>
+        </containerMappings>
+        <toolSections name="Tools">
+          <ownedTools xsi:type="tool:NodeCreationDescription" name="CreateAttribute" nodeMappings="//@ownedViewpoints[name='NoSQLView_Test_genereted']/@ownedRepresentations[name='Overview']/@defaultLayer/@containerMappings[name='Entity']/@subContainerMappings[name='EntityVersion']/@subContainerMappings[name='AttributeContainer']/@subNodeMappings[name='Attribute']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:container">
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="NoSQL_Schema::Attribute" referenceName="properties">
+                  <subModelOperations xsi:type="tool_1:CreateInstance" typeName="NoSQL_Schema::PrimitiveType" referenceName="type"/>
+                </subModelOperations>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:EdgeCreationDescription" name="CreateReference" edgeMappings="//@ownedViewpoints[name='NoSQLView_Test_genereted']/@ownedRepresentations[name='Overview']/@defaultLayer/@edgeMappings[name='Reference']">
+            <sourceVariable name="source"/>
+            <targetVariable name="target"/>
+            <sourceViewVariable name="sourceView"/>
+            <targetViewVariable name="targetView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:source">
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="NoSQL_Schema::Reference" referenceName="properties">
+                  <subModelOperations xsi:type="tool_1:SetValue" featureName="aql:self.eContainer(NoSQL_Schema::EntityVersion)" valueExpression="var:source"/>
+                  <subModelOperations xsi:type="tool_1:SetValue" featureName="refTo" valueExpression="var:target"/>
+                </subModelOperations>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:EdgeCreationDescription" name="CreateAggregate" edgeMappings="//@ownedViewpoints[name='NoSQLView_Test_genereted']/@ownedRepresentations[name='Overview']/@defaultLayer/@edgeMappings[name='Aggregate']">
+            <sourceVariable name="source"/>
+            <targetVariable name="target"/>
+            <sourceViewVariable name="sourceView"/>
+            <targetViewVariable name="targetView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:source">
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="NoSQL_Schema::Aggregate" referenceName="properties">
+                  <subModelOperations xsi:type="tool_1:SetValue" featureName="aql:self.eContainer(NoSQL_Schema::EntityVersion)" valueExpression="var:source"/>
+                  <subModelOperations xsi:type="tool_1:SetValue" featureName="refTo" valueExpression="var:target"/>
+                </subModelOperations>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ReconnectEdgeDescription" name="ReconnectReference">
+            <source name="source"/>
+            <target name="target"/>
+            <sourceView name="sourceView"/>
+            <targetView name="targetView"/>
+            <element name="element"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:element">
+                <subModelOperations xsi:type="tool_1:SetValue" featureName="refTo" valueExpression="var:target"/>
+              </firstModelOperations>
+            </initialOperation>
+            <edgeView name="edgeView"/>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ReconnectEdgeDescription" name="ReconnectAggregate">
+            <source name="source"/>
+            <target name="target"/>
+            <sourceView name="sourceView"/>
+            <targetView name="targetView"/>
+            <element name="element"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:element">
+                <subModelOperations xsi:type="tool_1:Unset" featureName="refTo" elementExpression="aql:self.refTo"/>
+                <subModelOperations xsi:type="tool_1:SetValue" featureName="refTo" valueExpression="var:target"/>
+              </firstModelOperations>
+            </initialOperation>
+            <edgeView name="edgeView"/>
+          </ownedTools>
+          <ownedTools xsi:type="tool:DirectEditLabel" name="editLabel">
+            <mask mask="{0}"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:SetValue" featureName="name" valueExpression="var:0"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerCreationDescription" name="CreateEntity" containerMappings="//@ownedViewpoints[name='NoSQLView_Test_genereted']/@ownedRepresentations[name='Overview']/@defaultLayer/@containerMappings[name='Entity']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:container">
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="NoSQL_Schema::Entity" referenceName="entities"/>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerCreationDescription" name="CreateEntityVersion" containerMappings="//@ownedViewpoints[name='NoSQLView_Test_genereted']/@ownedRepresentations[name='Overview']/@defaultLayer/@containerMappings[name='Entity']/@subContainerMappings[name='EntityVersion']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:container">
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="NoSQL_Schema::EntityVersion" referenceName="entityversions"/>
+                <subModelOperations xsi:type="tool_1:SetValue" featureName="versionId" valueExpression="aql:self.siblings()->size()"/>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:DoubleClickDescription" name="ChangePrimaryType" mappings="//@ownedViewpoints[name='NoSQLView_Test_genereted']/@ownedRepresentations[name='Overview']/@defaultLayer/@containerMappings[name='Entity']/@subContainerMappings[name='EntityVersion']/@subContainerMappings[name='AttributeContainer']/@subNodeMappings[name='Attribute']">
+            <element name="element"/>
+            <elementView name="elementView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="properties:DialogModelOperation" titleExpression="Change Type">
+                <buttons labelExpression="Cancel" closeDialogOnClick="true" rollbackChangesOnClose="true">
+                  <initialOperation/>
+                </buttons>
+                <buttons labelExpression="OK" default="true" closeDialogOnClick="true">
+                  <initialOperation>
+                    <firstModelOperations xsi:type="tool_1:CreateInstance" typeName="NoSQL_Schema::PrimitiveType" referenceName="type">
+                      <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.type">
+                        <subModelOperations xsi:type="tool_1:SetValue" featureName="name" valueExpression="var:text"/>
+                      </subModelOperations>
+                    </firstModelOperations>
+                  </initialOperation>
+                </buttons>
+                <page name="Default Page" labelExpression="Page" domainClass="NoSQL_Schema::Attribute" semanticCandidateExpression="var:self" groups="//@ownedViewpoints[name='NoSQLView_Test_genereted']/@ownedRepresentations[name='Overview']/@defaultLayer/@toolSections.0/@ownedTools[name='ChangePrimaryType']/@initialOperation/@firstModelOperations/@groups.0"/>
+                <groups name="Default Group" labelExpression="Group" domainClass="NoSQL_Schema::Attribute" semanticCandidateExpression="var:self">
+                  <controls xsi:type="properties:TextDescription" name="TextBox" labelExpression="Primitive Type">
+                    <initialOperation>
+                      <firstModelOperations xsi:type="tool_1:Let" variableName="text" valueExpression="var:newValue"/>
+                    </initialOperation>
+                  </controls>
+                </groups>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+        </toolSections>
+      </defaultLayer>
+    </ownedRepresentations>
+    <ownedJavaExtensions qualifiedClassName="NOSql.project.design.Services"/>
+  </ownedViewpoints>
+</description:Group>
