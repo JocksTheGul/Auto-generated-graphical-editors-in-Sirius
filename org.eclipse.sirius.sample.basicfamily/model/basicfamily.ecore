@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="basicfamily" nsURI="http://www.eclipse.org/sirius/sample/basicfamily"
+    nsPrefix="basicfamily">
+  <eAnnotations source="sirius">
+    <details key="name" value="basicfamily"/>
+    <details key="mainclass" value="Family"/>
+    <details key="viewpoint" value="persons"/>
+    <details key="diagram" value="family"/>
+    <details key="path" value="org.eclipse.sirius.sample.basicfamily.starter.design"/>
+  </eAnnotations>
+  <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Person" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="children" upperBound="-1"
+        eType="#//Person" eOpposite="#//Person/parents"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parents" upperBound="2"
+        eType="#//Person" eOpposite="#//Person/children"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="mother" eType="#//Woman"
+        derived="true">
+      <eAnnotations source="sirius.edge">
+        <details key="type" value="relation"/>
+        <details key="source" value="ManNode, WomanNode"/>
+        <details key="target" value="WomanNode"/>
+        <details key="label" value=""/>
+        <details key="color" value="light_red"/>
+        <details key="labelcolor" value="red"/>
+        <details key="name" value="motherEdge"/>
+        <details key="targetFinderExpression" value="feature:mother"/>
+      </eAnnotations>
+      <eAnnotations source="sirius.tool">
+        <details key="type" value="EdgeCreationDescription"/>
+        <details key="name" value="setMother"/>
+        <details key="mappings" value="motherEdge"/>
+        <details key="feature" value="mother"/>
+        <details key="belongsto" value="motherEdge"/>
+      </eAnnotations>
+      <eAnnotations source="sirius.tool">
+        <details key="type" value="DeleteElementDescription"/>
+        <details key="name" value="unsetMother"/>
+        <details key="feature" value="mother"/>
+        <details key="belongsto" value="motherEdge"/>
+      </eAnnotations>
+      <eAnnotations source="sirius.tool">
+        <details key="type" value="ReconnectEdgeDescription"/>
+        <details key="name" value="reconnectMother"/>
+        <details key="feature" value="mother"/>
+        <details key="belongsto" value="motherEdge"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="father" eType="#//Man"
+        derived="true">
+      <eAnnotations source="sirius.edge">
+        <details key="type" value="relation"/>
+        <details key="source" value="ManNode, WomanNode"/>
+        <details key="target" value="ManNode"/>
+        <details key="color" value="light_blue"/>
+        <details key="name" value="fatherEdge"/>
+        <details key="targetFinderExpression" value="feature:father"/>
+      </eAnnotations>
+      <eAnnotations source="sirius.tool">
+        <details key="type" value="EdgeCreationDescription"/>
+        <details key="name" value="setFather"/>
+        <details key="mappings" value="fatherEdge"/>
+        <details key="feature" value="father"/>
+        <details key="belongsto" value="fatherEdge"/>
+      </eAnnotations>
+      <eAnnotations source="sirius.tool">
+        <details key="type" value="DeleteElementDescription"/>
+        <details key="name" value="unsetFather"/>
+        <details key="feature" value="father"/>
+        <details key="belongsto" value="fatherEdge"/>
+      </eAnnotations>
+      <eAnnotations source="sirius.tool">
+        <details key="type" value="ReconnectEdgeDescription"/>
+        <details key="name" value="reconnectFather"/>
+        <details key="feature" value="father"/>
+        <details key="belongsto" value="fatherEdge"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Family">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="members" upperBound="-1"
+        eType="#//Person" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Man" eSuperTypes="#//Person">
+    <eAnnotations source="sirius.node">
+      <details key="name" value="ManNode"/>
+      <details key="expression" value="feature:members"/>
+      <details key="color" value="blue"/>
+      <details key="bordercolor" value="light_blue"/>
+      <details key="labelcolor" value="white"/>
+      <details key="style" value="SquareDescription"/>
+      <details key="height" value="5"/>
+      <details key="width" value="5"/>
+      <details key="container" value="default"/>
+      <details key="domain" value="Man"/>
+    </eAnnotations>
+    <eAnnotations source="sirius.tool">
+      <details key="type" value="DirectEditLabel"/>
+      <details key="name" value="editMan"/>
+      <details key="feature" value="name"/>
+      <details key="value" value="var:0"/>
+      <details key="belongsto" value="ManNode"/>
+    </eAnnotations>
+    <eAnnotations source="sirius.tool">
+      <details key="type" value="NodeCreationDescription"/>
+      <details key="name" value="CreateMan"/>
+      <details key="label" value="Man"/>
+      <details key="feature" value="name"/>
+      <details key="value" value="aql:'Man'"/>
+      <details key="reference" value="members"/>
+      <details key="mappings" value="ManNode"/>
+      <details key="belongsto" value="ManNode"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Woman" eSuperTypes="#//Person">
+    <eAnnotations source="sirius.node">
+      <details key="name" value="WomanNode"/>
+      <details key="expression" value="feature:members"/>
+      <details key="color" value="red"/>
+      <details key="style" value="SquareDescription"/>
+      <details key="height" value="5"/>
+      <details key="width" value="5"/>
+      <details key="container" value="default"/>
+      <details key="domain" value="Woman"/>
+    </eAnnotations>
+    <eAnnotations source="sirius.tool">
+      <details key="type" value="DirectEditLabel"/>
+      <details key="name" value="editWoman"/>
+      <details key="feature" value="name"/>
+      <details key="value" value="var:0"/>
+      <details key="belongsto" value="WomanNode"/>
+    </eAnnotations>
+    <eAnnotations source="sirius.tool">
+      <details key="type" value="NodeCreationDescription"/>
+      <details key="name" value="CreateWoman"/>
+      <details key="label" value="Woman"/>
+      <details key="feature" value="name"/>
+      <details key="value" value="aql:'Woman'"/>
+      <details key="reference" value="members"/>
+      <details key="mappings" value="WomanNode"/>
+      <details key="belongsto" value="WomanNode"/>
+    </eAnnotations>
+  </eClassifiers>
+</ecore:EPackage>

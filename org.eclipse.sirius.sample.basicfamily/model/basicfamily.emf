@@ -1,0 +1,40 @@
+@sirius(name="basicfamily", mainclass="Family", viewpoint="persons", diagram="family", path="org.eclipse.sirius.sample.basicfamily.starter.design")
+@namespace(uri="http://www.eclipse.org/sirius/sample/basicfamily", prefix="basicfamily")
+@GenModel
+package basicfamily;
+
+abstract class Person {
+	attr String name;
+	ref Person[*]#parents children;
+	ref Person[0..2]#children parents;
+
+	@sirius.edge(type="relation", source="ManNode, WomanNode", target="WomanNode", label="", color="light_red", labelcolor="red", name="motherEdge", targetFinderExpression="feature:mother")
+	@sirius.tool(type="EdgeCreationDescription", name="setMother", mappings="motherEdge", feature="mother", belongsto="motherEdge")
+	@sirius.tool(type="DeleteElementDescription", name="unsetMother", feature="mother", belongsto="motherEdge")
+	@sirius.tool(type="ReconnectEdgeDescription", name="reconnectMother", feature="mother", belongsto="motherEdge")
+	derived ref Woman mother;
+
+	@sirius.edge(type="relation", source="ManNode, WomanNode", target="ManNode", color="light_blue", name="fatherEdge", targetFinderExpression="feature:father")
+	@sirius.tool(type="EdgeCreationDescription", name="setFather", mappings="fatherEdge", feature="father", belongsto="fatherEdge")
+	@sirius.tool(type="DeleteElementDescription", name="unsetFather", feature="father", belongsto="fatherEdge")
+	@sirius.tool(type="ReconnectEdgeDescription", name="reconnectFather", feature="father", belongsto="fatherEdge")
+	derived ref Man father;
+}
+
+class Family {
+	attr String name;
+	val Person[*] members;
+}
+
+@sirius.node(name="ManNode", expression="feature:members", color="blue", bordercolor="light_blue", labelcolor="white", style="SquareDescription", height="5", width="5", container="default", domain="Man")
+@sirius.tool(type="DirectEditLabel", name="editMan", feature="name", value="var:0", belongsto="ManNode")
+@sirius.tool(type="NodeCreationDescription", name="CreateMan", label="Man", feature="name", value="aql:'Man'", reference="members", mappings="ManNode", belongsto="ManNode")
+class Man extends Person {
+}
+
+@sirius.node(name="WomanNode", expression="feature:members", color="red", style="SquareDescription", height="5", width="5", container="default", domain="Woman")
+@sirius.tool(type="DirectEditLabel", name="editWoman", feature="name", value="var:0", belongsto="WomanNode")
+@sirius.tool(type="NodeCreationDescription", name="CreateWoman", label="Woman", feature="name", value="aql:'Woman'", reference="members", mappings="WomanNode", belongsto="WomanNode")
+class Woman extends Person {
+}
+
